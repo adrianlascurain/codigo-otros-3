@@ -7,28 +7,33 @@ const productos = [
   {nombre: "Bota azul", tipo: "bota", color: "azul", img: "./bota-azul.jpg"},
   {nombre: "Zapato rojo", tipo: "zapato", color: "rojo", img: "./zapato-rojo.jpg"}
 ]
+// Se obtiene el elemento por id y no por nombre para mayor especificidad y unicidad al obtener elementos y no colecciones
+const li = document.getElementById("lista-de-productos")
+const input = document.getElementById("input");
 
-const li = document.getElementsByName("lista-de-productos")
-const $i = document.querySelector('.input');
+// Se crea la función display productos para su posterior ejecución
+function displayProductos(productos){
+  for (let i = 0; i < productos.length; i++) {
+    // Se nombra la variable con la palabra div para ser más descriptivo
+    const div = document.createElement("div")
+    div.classList.add("producto")
 
-for (let i = 0; i < productos.length; i++) {
-  var d = document.createElement("div")
-  d.classList.add("producto")
+    const ti = document.createElement("p")
+    ti.classList.add("titulo")
+    ti.textContent = productos[i].nombre;
+    
+    var imagen = document.createElement("img");
+    imagen.setAttribute('src', productos[i].img);
 
-  var ti = document.createElement("p")
-  ti.classList.add("titulo")
-  ti.textContent = productos[i].nombre
-  
-  var imagen = document.createElement("img");
-  imagen.setAttribute('src', productos[i].img);
+    div.appendChild(ti)
+    div.appendChild(imagen)
 
-  d.appendChild(ti)
-  d.appendChild(imagen)
-
-  li.appendChild(d)
+    li.appendChild(div)
+  }
 }
 
 displayProductos(productos)
+
 const botonDeFiltro = document.querySelector("button");
 
 botonDeFiltro.onclick = function() {
@@ -36,7 +41,7 @@ botonDeFiltro.onclick = function() {
     li.removeChild(li.firstChild);
   }
 
-  const texto = $i.value;
+  const texto = input.value;
   console.log(texto);
   const productosFiltrados = filtrado(productos, texto );
 
